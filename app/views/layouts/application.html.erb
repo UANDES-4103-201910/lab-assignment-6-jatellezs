@@ -10,6 +10,8 @@
 
   <body>
   	<p id="notice"><%= notice %></p>
+    <p id="error" style="color: red"><%= flash[:error] %></p>
+
     <%= yield %>
   </body>
 </html>

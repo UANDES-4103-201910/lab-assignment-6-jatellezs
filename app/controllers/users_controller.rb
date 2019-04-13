@@ -25,13 +25,34 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #complete this method
+    @user = User.new(user_params)
+    if @user.save
+      #format.html { redirect_to root, notice: 'User was successfully created.' }
+      #format.json { render :show, status: :created, location: @user }
+      flash[:notice] = "User created successfully"
+      redirect_to @user
+    else
+      #format.html { redirect_to registrations }
+      #format.json { render json: @user.errors, status: :unprocessable_entity }
+      flash.now[:error] = "User could not be created (invalid format)"
+      render "new"
+    end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #complete this method
+    if @user.update(user_params)
+      #format.html { redirect_to @user, notice: 'User was successfully updated.' }
+      #format.json { render :show, status: :ok, location: @user }
+      flash[:notice] = "User updated successfully"
+      redirect_to @user
+    else
+      #format.html { render :edit }
+      #format.json { render json: @user.errors, status: :unprocessable_entity }
+      flash.now[:error] = "Could not update User (invalid format)"
+      render "edit"
+    end
   end
 
   # DELETE /users/1
